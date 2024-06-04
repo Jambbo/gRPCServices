@@ -1,0 +1,15 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+
+server:
+  port: 8081
+
+grpc:
+  client:
+    GLOBAL:
+      address: ${GRPC_HOST}
+      negotiation-type: plaintext #we will send just plaintext without encryption
+
+push:
+  batch-size: ${BATCH_SIZE} #to define the batch size that will be sent to analyser
