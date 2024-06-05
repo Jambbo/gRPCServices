@@ -74,6 +74,7 @@
                 <version>${os-maven-plugin.version}</version>
             </extension>
         </extensions>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
