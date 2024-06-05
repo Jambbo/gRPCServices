@@ -37,8 +37,7 @@ public class GRPCDataServiceImpl implements GRPCDataService {
 
     @Override
     public void sendData(List<Data> data) {
-        StreamObserver<Empty> responseObserver = getEmptyStreamObserver();
-        StreamObserver<GRPCData> requestObserver = asyncStub.addStreamOfData(responseObserver);
+        StreamObserver<GRPCData> requestObserver = asyncStub.addStreamOfData(getEmptyStreamObserver());
         data.forEach(d -> {
                     GRPCData request = grpcDataMapper.toGRPCData(d);
                     log.debug("Sending data: {}",data);
