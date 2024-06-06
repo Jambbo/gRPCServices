@@ -1,6 +1,7 @@
-package com.example.dataanalysergrpcmicroservice.service;
+package com.example.dataanalysergrpcmicroservice.service.impl;
 
 import com.example.dataanalysergrpcmicroservice.model.Data;
+import com.example.dataanalysergrpcmicroservice.service.DataService;
 import com.example.grpccommon.DataServerGrpc.DataServerImplBase;
 import com.example.grpccommon.GRPCData;
 import com.google.protobuf.Empty;
