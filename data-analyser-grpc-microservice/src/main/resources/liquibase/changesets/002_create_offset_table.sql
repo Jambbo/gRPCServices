@@ -1,5 +1,5 @@
 create table offsets
-(
+(   id BIGSERIAL,
     current_offset BIGINT DEFAULT 0
 );
 

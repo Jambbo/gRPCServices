@@ -6,6 +6,7 @@ import com.example.dataanalysergrpcmicroservice.service.DataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
+    @Transactional
     public List<Data> getWithBatch(Long batchSize) {
         List<Data> data = dataRepository.findAllWithOffset(batchSize);
         if(data.size()>0){
