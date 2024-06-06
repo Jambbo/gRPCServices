@@ -6,10 +6,13 @@ import com.example.grpccommon.GRPCData;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.springframework.beans.factory.annotation.Value;
 
 @GrpcService
 @RequiredArgsConstructor
+@Slf4j
 public class GRPCDataService extends DataServerImplBase {
 
     private final DataService dataService;
@@ -24,6 +27,23 @@ public class GRPCDataService extends DataServerImplBase {
 
     @Override
     public StreamObserver<GRPCData> addStreamOfData(StreamObserver<Empty> responseObserver) {
-        return super.addStreamOfData(responseObserver);
+        return new StreamObserver<>() {
+            @Override
+            public void onNext(GRPCData grpcData) {
+                Data data = new Data(grpcData);
+                dataService.handle(data);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                log.error("Error caused: {} ",throwable.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onNext(Empty.newBuilder().build());
+               responseObserver.onCompleted();
+            }
+        };
     }
 }
