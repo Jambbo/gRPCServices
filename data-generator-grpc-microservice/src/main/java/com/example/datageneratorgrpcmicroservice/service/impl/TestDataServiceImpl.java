@@ -34,7 +34,7 @@ public class TestDataServiceImpl implements TestDataService {
             executorService.scheduleAtFixedRate(()->{
                 Data data = new Data();
                 data.setSensorId((long)getRandomNumber(1,10));
-                data.setMeasuerement(getRandomNumber(15,20));
+                data.setMeasurement(getRandomNumber(15,20));
                 data.setMeasurementType(getRandomMeasurementType(dataTestOptions.getMeasurementTypes()));
                 data.setTimestamp(LocalDateTime.now());
                 dataBatch.add(data);

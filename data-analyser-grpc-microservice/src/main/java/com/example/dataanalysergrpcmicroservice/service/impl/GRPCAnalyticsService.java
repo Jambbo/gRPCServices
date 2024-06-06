@@ -36,7 +36,7 @@ public class GRPCAnalyticsService extends AnalyticsServerImplBase {
                                             .toEpochSecond(ZoneOffset.UTC))
                                     .build()
                     )
-                    .setMeasurement(d.getMeasuerement())
+                    .setMeasurement(d.getMeasurement())
                     .setMeasurementType(MeasurementType.valueOf(d.getMeasurementType().name()))
                     .build();
             responseObserver.onNext(dataRequest);

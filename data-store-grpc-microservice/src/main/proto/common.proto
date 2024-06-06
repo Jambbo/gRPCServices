@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpccommon"; //in this package will be stored grpc files (that were generated)
+option java_outer_classname = "GeneratorProto";
+option objc_class_prefix = "RTG"; //prefix by default
+
+package service;
+
+import "google/protobuf/empty.proto"; //void analogy
+import "google/protobuf/timestamp.proto";// to transfer LocalDateTime
+
+//service that works with data
+service DataServer{
+
+  rpc AddData(GRPCData) returns(google.protobuf.Empty); // we call "AddData", pass there data and not necessary to get answer
+
+  rpc AddStreamOfData(stream GRPCData) returns(google.protobuf.Empty);
+
+}
+
+
+service AnalyticsServer{
+
+  rpc AskForData(GRPCAnalyticsRequest) returns(stream GRPCData);
+
+}
+
+message GRPCData{
+  int64 id = 1;
+  int64 sensorId = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  double measurement = 4;
+  MeasurementType measurementType = 5;
+
+}
+
+enum MeasurementType{
+   TEMPERATURE = 0;
+   VOLTAGE = 1;
+   POWER = 2;
+}
+
+message GRPCAnalyticsRequest{
+  int64 batchSize = 1;//quantity of data that we have to return
+}

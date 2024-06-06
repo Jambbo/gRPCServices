@@ -19,7 +19,7 @@ public interface GRPCDataMapper {
                                 .setSeconds(data.getTimestamp().toEpochSecond(ZoneOffset.UTC))
                                 .build()
                 )
-                .setMeasurement(data.getMeasuerement())
+                .setMeasurement(data.getMeasurement())
                 .setMeasurementType(MeasurementType.valueOf(data.getMeasurementType().name()))
                 .build();
     }

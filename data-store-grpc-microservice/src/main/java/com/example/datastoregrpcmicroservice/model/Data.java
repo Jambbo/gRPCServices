@@ -1,7 +1,7 @@
-package com.example.dataanalysergrpcmicroservice.model;
+package com.example.datastoregrpcmicroservice.model;
+
 
 import com.example.grpccommon.GRPCData;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,19 +14,13 @@ import java.time.ZoneId;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "data")
 @ToString
 public class Data {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private Long sensorId;
     private LocalDateTime timestamp;
     private Double measurement;
-
-    @Column(name = "type")
-    @Enumerated(value = EnumType.STRING)
     private MeasurementType measurementType;
 
     public enum MeasurementType{
@@ -35,19 +29,17 @@ public class Data {
         POWER
     }
 
-    public Data(GRPCData grpcData){
-        this.id = grpcData.getId();
-        this.sensorId = grpcData.getSensorId();
+    public Data(GRPCData data){
+        this.id = data.getId();
+        this.sensorId = data.getSensorId();
         this.timestamp = LocalDateTime.ofInstant(
                 Instant.ofEpochSecond(
-                        grpcData.getTimestamp().getSeconds(),
-                        grpcData.getTimestamp().getNanos()
+                        data.getTimestamp().getSeconds(),data.getTimestamp().getNanos()
                 ),
                 ZoneId.systemDefault()
         );
-        this.measurement = grpcData.getMeasurement();
-        this.measurementType = MeasurementType.valueOf(grpcData.getMeasurementType().name());
+        this.measurement = data.getMeasurement();
+        this.measurementType = MeasurementType.valueOf(data.getMeasurementType().name());
     }
 
 }
-
